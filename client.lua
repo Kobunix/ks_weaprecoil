@@ -1,32 +1,3 @@
-ESX = exports["es_extended"]:getSharedObject()
-
-local scopedWeapons = 
-{
-    100416529,  -- WEAPON_SNIPERRIFLE
-    205991906,  -- WEAPON_HEAVYSNIPER
-    3342088282, -- WEAPON_MARKSMANRIFLE
-	177293209,   -- WEAPON_HEAVYSNIPER MKII
-	1785463520  -- WEAPON_MARKSMANRIFLE_MK2
-}
-
-function HashInTable( hash )
-    for k, v in pairs( scopedWeapons ) do 
-        if ( hash == v ) then 
-            return true 
-        end 
-    end 
-
-    return false 
-end 
-
--- function ManageReticle()
---     local ped = GetPlayerPed( -1 )
---     local _, hash = GetCurrentPedWeapon( ped, true )
---         if not HashInTable( hash ) then 
---             HideHudComponentThisFrame( 14 )
--- 		end 
--- end 
-
 Citizen.CreateThread(function()
     local shakeData = {
         [GetHashKey("WEAPON_STUNGUN")] = 0.03,
@@ -91,9 +62,10 @@ Citizen.CreateThread(function()
     }
 
     while true do
+        local ped, weapon = nil, nil
         Citizen.Wait(1000)
-        local ped = PlayerPedId()
-        local weapon = GetSelectedPedWeapon(ped)
+        ped = PlayerPedId()
+        weapon = GetSelectedPedWeapon(ped)
 
         if shakeData[weapon] ~= nil and IsPedShooting(ped) then
             ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', shakeData[weapon])
