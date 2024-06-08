@@ -1,0 +1,5 @@
+fx_version 'cerulean'
+game 'gta5'
+author 'Kobunix'
+description 'KScripts - Weapon Recol'
+client_script 'client.lua'
